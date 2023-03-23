@@ -24,4 +24,12 @@ public class Login {
     @Column(name = "job_title")
     private String jobTitle;
     private String department;
+
+    public Login(String application, String appAccountName, Boolean isActive, String jobTitle, String department) {
+        this.application = application;
+        this.appAccountName = appAccountName;
+        this.isActive = isActive;
+        this.jobTitle = jobTitle;
+        this.department = department;
+    }
 }

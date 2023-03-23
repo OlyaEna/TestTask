@@ -1,4 +1,4 @@
-package com.task.task3.service;
+package com.task.task3.service.CSVHelper;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -36,7 +36,6 @@ public class CSVHelperLogin {
 
             for (CSVRecord csvRecord : csvRecords) {
                 Login login = new Login(
-                        Long.parseLong(csvRecord.get("Id")),
                         csvRecord.get("Application"),
                         csvRecord.get("AppAccountName"),
                         Boolean.parseBoolean(csvRecord.get("IsActive")),

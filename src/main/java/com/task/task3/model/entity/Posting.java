@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Posting{
+public class Posting {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,13 +23,10 @@ public class Posting{
     @Column(name = "mat_doc")
     private Long matDoc;
     private Integer item;
-
     @Column(name = "doc_date")
-    private LocalDateTime docDate;
-
+    private Date docDate;
     @Column(name = "postng_date")
-    private LocalDateTime pstngDate;
-
+    private Date pstngDate;
     @Column(name = "material_description")
     private String materialDescription;
     private Integer quantity;
@@ -37,6 +35,17 @@ public class Posting{
     private String crcy;
     @Column(name = "user_name")
     private String userName;
-    @Column(name = "authorized_delivery")
-    private Boolean authorizedDelivery;
+//    @Column(name = "authorized_delivery")
+//    private Boolean authorizedDelivery;
+
+    public Posting(Long matDoc, Integer item, String materialDescription, Integer quantity, String bUn, Double amountLC, String crcy, String userName) {
+        this.matDoc = matDoc;
+        this.item = item;
+        this.materialDescription = materialDescription;
+        this.quantity = quantity;
+        this.bUn = bUn;
+        this.amountLC = amountLC;
+        this.crcy = crcy;
+        this.userName = userName;
+    }
 }
