@@ -36,7 +36,6 @@ public class CSVHelperLogin {
 
             for (CSVRecord csvRecord : csvRecords) {
                 Login login = new Login(
-                        Long.parseLong(csvRecord.get("Id")),
                         csvRecord.get("Application"),
                         csvRecord.get("AppAccountName"),
                         Boolean.parseBoolean(csvRecord.get("IsActive")),
