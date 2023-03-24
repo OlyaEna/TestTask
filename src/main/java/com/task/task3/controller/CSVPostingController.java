@@ -101,7 +101,7 @@ public class CSVPostingController {
     @GetMapping(path = "/find/delivery")
     public List<DeliveryResponse> findByAuthorizedDelivery(@RequestParam(name = "from") Date from,
                                                            @RequestParam(name = "to") Date to) {
-        return postingService.findByAuthorizedDelivery(from, to);
+        return postingService.findByAuthorizedDelivery( from, to);
     }
 
 }
