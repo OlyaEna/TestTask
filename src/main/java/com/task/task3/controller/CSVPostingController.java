@@ -51,7 +51,8 @@ public class CSVPostingController {
     }
 
     /**
-     * Вывод полной таблицы
+     * Вывод полной таблицы, также проверка,
+     * что User Name (postings.csv) находится в списке AppAccountName (logins.csv) и IsActive
      */
     @GetMapping("/getAll")
     public ResponseEntity<List<Posting>> getAllTutorials() {
