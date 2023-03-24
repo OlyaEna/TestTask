@@ -19,6 +19,11 @@ import java.util.List;
 @RequestMapping("/login")
 public class CSVLoginController {
     private final LoginService loginService;
+
+    /**
+     * Добавление файла Logins.csv
+     */
+
     @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
@@ -37,6 +42,10 @@ public class CSVLoginController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
+    /**
+     * Вывод полной таблицы
+     */
+
     @GetMapping("/getAll")
     public ResponseEntity<List<Login>> getAllTutorials() {
         try {
@@ -51,5 +60,6 @@ public class CSVLoginController {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
 
 }
