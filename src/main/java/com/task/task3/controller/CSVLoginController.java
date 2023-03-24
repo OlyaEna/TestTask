@@ -16,6 +16,7 @@ import java.util.List;
 @Controller
 @ResponseBody
 @AllArgsConstructor
+@RequestMapping("/login")
 public class CSVLoginController {
     private final LoginService loginService;
     @PostMapping("/upload")
@@ -36,7 +37,7 @@ public class CSVLoginController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-    @GetMapping("/login")
+    @GetMapping("/getAll")
     public ResponseEntity<List<Login>> getAllTutorials() {
         try {
             List<Login> logins = loginService.getAllTutorials();

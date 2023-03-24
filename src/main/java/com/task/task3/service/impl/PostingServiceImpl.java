@@ -2,8 +2,8 @@ package com.task.task3.service.impl;
 
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.entity.Posting;
+import com.task.task3.model.repository.LoginRepository;
 import com.task.task3.model.repository.PostingRepository;
-import com.task.task3.service.CSVHelper.CSVHelperLogin;
 import com.task.task3.service.CSVHelper.CSVHelperPosting;
 import com.task.task3.service.PostingService;
 import lombok.AllArgsConstructor;
@@ -17,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PostingServiceImpl implements PostingService {
     private final PostingRepository postingRepository;
+    private final LoginRepository loginRepository;
 
     @Override
     public void save(MultipartFile file) {
@@ -27,4 +28,26 @@ public class PostingServiceImpl implements PostingService {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());
         }
     }
+
+    public void saveBooleanIfTrue() {
+        List<Login> logins = loginRepository.findAll();
+        List<Posting> postings = postingRepository.findAll();
+        for (Login login : logins) {
+            for (Posting posting : postings) {
+                if (login.getAppAccountName().equals(posting.getUserName()) & login.getIsActive().equals(true) ) {
+                    posting.setAuthorizedDelivery(true);
+                } else {
+                    posting.setAuthorizedDelivery(false);
+                }
+                postingRepository.save(posting);
+
+            }
+        }
+    }
+
+    @Override
+    public List<Posting> getAllTutorials() {
+        return postingRepository.findAll();
+    }
+
 }

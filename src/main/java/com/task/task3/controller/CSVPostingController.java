@@ -19,10 +19,12 @@ import java.util.List;
 @Controller
 @ResponseBody
 @AllArgsConstructor
+@RequestMapping("/posting")
+
 public class CSVPostingController {
     private final PostingService postingService;
 
-    @PostMapping("/upload/posting")
+    @PostMapping("/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
@@ -40,19 +42,20 @@ public class CSVPostingController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message));
     }
 
-//    @GetMapping("/login")
-//    public ResponseEntity<List<Posting>> getAllTutorials() {
-//        try {
-//            List<Posting> postings = postingService.getAllTutorials();
-//
-//            if (logins.isEmpty()) {
-//                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-//            }
-//
-//            return new ResponseEntity<>(logins, HttpStatus.OK);
-//        } catch (Exception e) {
-//            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-//        }
-//    }
+    @GetMapping("/getAll")
+    public ResponseEntity<List<Posting>> getAllTutorials() {
+        try {
+            postingService.saveBooleanIfTrue();
+            List<Posting> postings = postingService.getAllTutorials();
+
+            if (postings.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+
+            return new ResponseEntity<>(postings, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

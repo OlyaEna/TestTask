@@ -42,8 +42,8 @@ public class Posting {
     private String crcy;
     @Column(name = "user_name")
     private String userName;
-//    @Column(name = "authorized_delivery")
-//    private Boolean authorizedDelivery;
+    @Column(name = "authorized_delivery")
+    private Boolean authorizedDelivery;
 
 
     public Posting(Long matDoc, Integer item, LocalDate docDate,
