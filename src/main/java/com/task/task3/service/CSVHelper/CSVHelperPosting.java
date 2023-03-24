@@ -8,7 +8,9 @@ import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +42,14 @@ public class CSVHelperPosting {
 
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+
             for (CSVRecord csvRecord : csvRecords) {
                 Posting posting = new Posting(
                         Long.parseLong(csvRecord.get("Mat. Doc.")),
                         Integer.parseInt(csvRecord.get("Item")),
-                        csvRecord.get("Doc. Date"),
-                        csvRecord.get("Pstng Date"),
+                        LocalDate.parse(csvRecord.get("Doc. Date"), formatter),
+                        LocalDate.parse(csvRecord.get("Pstng Date"), formatter),
                         csvRecord.get("Material Description"),
                         Integer.parseInt(csvRecord.get("Quantity")),
                         csvRecord.get("BUn"),

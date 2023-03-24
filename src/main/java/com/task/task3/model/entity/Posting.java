@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * в файле postings.csv в конце каждой строки была ;
@@ -29,9 +31,9 @@ public class Posting {
     private Long matDoc;
     private Integer item;
     @Column(name = "doc_date")
-    private String docDate;
+    private LocalDate docDate;
     @Column(name = "postng_date")
-    private String pstngDate;
+    private LocalDate pstngDate;
     @Column(name = "material_description")
     private String materialDescription;
     private Integer quantity;
@@ -44,8 +46,8 @@ public class Posting {
 //    private Boolean authorizedDelivery;
 
 
-    public Posting(Long matDoc, Integer item, String docDate,
-                   String pstngDate, String materialDescription,
+    public Posting(Long matDoc, Integer item, LocalDate docDate,
+                   LocalDate pstngDate, String materialDescription,
                    Integer quantity, String bUn, String amountLC, String crcy, String userName) {
         this.matDoc = matDoc;
         this.item = item;
