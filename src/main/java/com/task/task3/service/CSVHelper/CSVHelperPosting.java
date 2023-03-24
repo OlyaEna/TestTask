@@ -21,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class CSVHelperPosting {
     public static String TYPE = "text/csv";
-    static String[] HEADERs = {"Mat. Doc.", "Item", "Material Description",
+    static String[] HEADERs = {"Mat. Doc.", "Item", "Doc. Date", "Pstng Date", "Material Description",
             "Quantity", "BUn", "Amount LC", "Crcy", "User Name"};
 
     public static boolean hasCSVFormat(MultipartFile file) {
@@ -44,12 +44,12 @@ public class CSVHelperPosting {
                 Posting posting = new Posting(
                         Long.parseLong(csvRecord.get("Mat. Doc.")),
                         Integer.parseInt(csvRecord.get("Item")),
-//                        (Date) dateFormat.parse(csvRecord.get("Doc. Date")),
-//                        (Date) dateFormat.parse(csvRecord.get("Pstng Date")),
+                        csvRecord.get("Doc. Date"),
+                        csvRecord.get("Pstng Date"),
                         csvRecord.get("Material Description"),
                         Integer.parseInt(csvRecord.get("Quantity")),
                         csvRecord.get("BUn"),
-                        Double.parseDouble(csvRecord.get("Amount LC")),
+                        csvRecord.get("Amount LC"),
                         csvRecord.get("Crcy"),
                         csvRecord.get("User Name")
                 );

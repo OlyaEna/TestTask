@@ -7,7 +7,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
-import java.time.LocalDateTime;
+
+/**
+ * в файле postings.csv в конце каждой строки была ;
+ * я ее удалила
+ */
+
 
 @Getter
 @Setter
@@ -24,23 +29,28 @@ public class Posting {
     private Long matDoc;
     private Integer item;
     @Column(name = "doc_date")
-    private Date docDate;
+    private String docDate;
     @Column(name = "postng_date")
-    private Date pstngDate;
+    private String pstngDate;
     @Column(name = "material_description")
     private String materialDescription;
     private Integer quantity;
     private String bUn;
-    private Double amountLC;
+    private String amountLC;
     private String crcy;
     @Column(name = "user_name")
     private String userName;
 //    @Column(name = "authorized_delivery")
 //    private Boolean authorizedDelivery;
 
-    public Posting(Long matDoc, Integer item, String materialDescription, Integer quantity, String bUn, Double amountLC, String crcy, String userName) {
+
+    public Posting(Long matDoc, Integer item, String docDate,
+                   String pstngDate, String materialDescription,
+                   Integer quantity, String bUn, String amountLC, String crcy, String userName) {
         this.matDoc = matDoc;
         this.item = item;
+        this.docDate = docDate;
+        this.pstngDate = pstngDate;
         this.materialDescription = materialDescription;
         this.quantity = quantity;
         this.bUn = bUn;
