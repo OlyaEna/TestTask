@@ -1,5 +1,6 @@
 package com.task.task3.service.impl;
 
+import com.task.task3.dto.DeliveryResponse;
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.entity.Posting;
 import com.task.task3.model.repository.LoginRepository;
@@ -11,6 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -34,7 +37,7 @@ public class PostingServiceImpl implements PostingService {
         List<Posting> postings = postingRepository.findAll();
         for (Login login : logins) {
             for (Posting posting : postings) {
-                if (login.getAppAccountName().equals(posting.getUserName()) & login.getIsActive().equals(true) ) {
+                if (login.getAppAccountName().equals(posting.getUserName()) & login.getIsActive().equals(true)) {
                     posting.setAuthorizedDelivery(true);
                 } else {
                     posting.setAuthorizedDelivery(false);
@@ -45,8 +48,27 @@ public class PostingServiceImpl implements PostingService {
         }
     }
 
+    private List<DeliveryResponse> convertToResponse(List<Posting> postings) {
+        List<DeliveryResponse> responseList = new ArrayList<>();
+        for (Posting posting : postings) {
+            DeliveryResponse deliveryResponse = new DeliveryResponse();
+            deliveryResponse.setUserName(posting.getUserName());
+            deliveryResponse.setDocDate(posting.getDocDate());
+            deliveryResponse.setAuthorizedDelivery(posting.getAuthorizedDelivery());
+            deliveryResponse.setPstngDate(posting.getPstngDate());
+            responseList.add(deliveryResponse);
+        }
+        return responseList;
+    }
+
+    public List<DeliveryResponse> findByAuthorizedDelivery(Date from, Date to) {
+        List<Posting> postings = postingRepository.findByAuthorizedDelivery(from, to);
+        return convertToResponse(postings);
+    }
+
+
     @Override
-    public List<Posting> getAllTutorials() {
+    public List<Posting> getAllPostings() {
         return postingRepository.findAll();
     }
 

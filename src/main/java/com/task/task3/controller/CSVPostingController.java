@@ -1,5 +1,6 @@
 package com.task.task3.controller;
 
+import com.task.task3.dto.DeliveryResponse;
 import com.task.task3.dto.ResponseMessage;
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.entity.Posting;
@@ -58,7 +59,7 @@ public class CSVPostingController {
     public ResponseEntity<List<Posting>> getAllTutorials() {
         try {
             postingService.saveBooleanIfTrue();
-            List<Posting> postings = postingService.getAllTutorials();
+            List<Posting> postings = postingService.getAllPostings();
 
             if (postings.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -88,6 +89,18 @@ public class CSVPostingController {
     public List<Posting> findDocDateByDateBetween(@RequestParam(name = "from") Date from,
                                                   @RequestParam(name = "to") Date to) {
         return postingRepository.findByDateDocDate(from, to);
+    }
+
+
+    /**
+     * Ищет Posting по дате договора с возможностью запроса с фильтром по полю "авторизованная поставка"
+     * Выводит четыре поля: userName,authorizedDelivery, docDate, pstngDate
+     * запрос для примера : /posting/find/delivery?from=2020-07-21&to=2020-07-25
+     */
+    @GetMapping(path = "/find/delivery")
+    public List<DeliveryResponse> findByAuthorizedDelivery(@RequestParam(name = "from") Date from,
+                                                           @RequestParam(name = "to") Date to) {
+        return postingService.findByAuthorizedDelivery(from, to);
     }
 
 }
