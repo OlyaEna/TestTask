@@ -1,5 +1,7 @@
 package com.task.task3.service.impl;
 
+import com.task.task3.dto.LoginDto;
+import com.task.task3.dto.mapper.LoginMapper;
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.repository.LoginRepository;
 import com.task.task3.service.CSVHelper.CSVHelperLogin;
@@ -16,6 +18,7 @@ import java.util.List;
 public class LoginServiceImpl implements LoginService {
     private final LoginRepository loginRepository;
 
+    private final LoginMapper loginMapper;
 
     @Override
     public void save(MultipartFile file) {
@@ -28,7 +31,7 @@ public class LoginServiceImpl implements LoginService {
     }
 
     @Override
-    public List<Login> getAllTutorials() {
-        return loginRepository.findAll();
+    public List<LoginDto> getAllTutorials() {
+        return loginMapper.listToDto(loginRepository.findAll());
     }
 }

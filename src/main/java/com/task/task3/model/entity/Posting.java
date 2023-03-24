@@ -26,7 +26,6 @@ public class Posting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     @Column(name = "mat_doc")
     private Long matDoc;
     private Integer item;

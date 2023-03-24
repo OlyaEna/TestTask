@@ -1,6 +1,7 @@
 package com.task.task3.controller;
 
 import com.task.task3.dto.DeliveryResponse;
+import com.task.task3.dto.PostingDto;
 import com.task.task3.dto.ResponseMessage;
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.entity.Posting;
@@ -56,10 +57,10 @@ public class CSVPostingController {
      * что User Name (postings.csv) находится в списке AppAccountName (logins.csv) и IsActive
      */
     @GetMapping("/getAll")
-    public ResponseEntity<List<Posting>> getAllTutorials() {
+    public ResponseEntity<List<PostingDto>> getAllTutorials() {
         try {
             postingService.saveBooleanIfTrue();
-            List<Posting> postings = postingService.getAllPostings();
+            List<PostingDto> postings = postingService.getAllPostings();
 
             if (postings.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -76,9 +77,9 @@ public class CSVPostingController {
      * запрос для примера : /posting/find/pstng?from=2020-07-21&to=2020-07-25
      */
     @GetMapping(path = "/find/pstng")
-    public List<Posting> findPstngByDateBetween(@RequestParam(name = "from") Date from,
+    public List<PostingDto> findPstngByDateBetween(@RequestParam(name = "from") Date from,
                                                 @RequestParam(name = "to") Date to) {
-        return postingRepository.findByDatePstng(from, to);
+        return postingService.findByDatePstng(from, to);
     }
 
     /**
@@ -86,9 +87,9 @@ public class CSVPostingController {
      * запрос для примера : /posting/find/docDate?from=2020-07-21&to=2020-07-25
      */
     @GetMapping(path = "/find/docDate")
-    public List<Posting> findDocDateByDateBetween(@RequestParam(name = "from") Date from,
+    public List<PostingDto> findDocDateByDateBetween(@RequestParam(name = "from") Date from,
                                                   @RequestParam(name = "to") Date to) {
-        return postingRepository.findByDateDocDate(from, to);
+        return postingService.findByDateDocDate(from, to);
     }
 
 

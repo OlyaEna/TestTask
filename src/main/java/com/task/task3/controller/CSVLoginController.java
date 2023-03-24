@@ -1,5 +1,6 @@
 package com.task.task3.controller;
 
+import com.task.task3.dto.LoginDto;
 import com.task.task3.dto.ResponseMessage;
 import com.task.task3.model.entity.Login;
 import com.task.task3.service.CSVHelper.CSVHelperLogin;
@@ -47,9 +48,9 @@ public class CSVLoginController {
      */
 
     @GetMapping("/getAll")
-    public ResponseEntity<List<Login>> getAllTutorials() {
+    public ResponseEntity<List<LoginDto>> getAllTutorials() {
         try {
-            List<Login> logins = loginService.getAllTutorials();
+            List<LoginDto> logins = loginService.getAllTutorials();
 
             if (logins.isEmpty()) {
                 return new ResponseEntity<>(HttpStatus.NO_CONTENT);

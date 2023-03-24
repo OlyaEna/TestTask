@@ -1,6 +1,8 @@
 package com.task.task3.service.impl;
 
 import com.task.task3.dto.DeliveryResponse;
+import com.task.task3.dto.PostingDto;
+import com.task.task3.dto.mapper.PostingMapper;
 import com.task.task3.model.entity.Login;
 import com.task.task3.model.entity.Posting;
 import com.task.task3.model.repository.LoginRepository;
@@ -21,6 +23,7 @@ import java.util.List;
 public class PostingServiceImpl implements PostingService {
     private final PostingRepository postingRepository;
     private final LoginRepository loginRepository;
+    private final PostingMapper postingMapper;
 
     @Override
     public void save(MultipartFile file) {
@@ -66,10 +69,19 @@ public class PostingServiceImpl implements PostingService {
         return convertToResponse(postings);
     }
 
+    @Override
+    public List<PostingDto> findByDatePstng(Date from, Date to) {
+        return postingMapper.listToDto(postingRepository.findByDatePstng(from, to));
+    }
 
     @Override
-    public List<Posting> getAllPostings() {
-        return postingRepository.findAll();
+    public List<PostingDto> findByDateDocDate(Date from, Date to) {
+        return postingMapper.listToDto(postingRepository.findByDateDocDate(from, to));
+    }
+
+    @Override
+    public List<PostingDto> getAllPostings() {
+        return postingMapper.listToDto(postingRepository.findAll());
     }
 
 }
